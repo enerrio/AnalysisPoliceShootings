@@ -14,7 +14,7 @@ This project is split into 3 notebooks:
 There is also a `utils.py` file that contains code that geocodes cities, adds missing coordinates, fixes incorrect coordinates, and serializes data. In addition to this all the plots (except the map plots) are downloaded as png files and stored in the plots folder.
 
 ## Viewing Notebooks
-Plotly plots don't render correctly when viewed in Github, so the best way to view the notebooks that use plotly is to view them on [nbviewer.jupyter.org](http://nbviewer.jupyter.org). Below are links to view the notebooks on that website.
+Plotly plots don't render correctly when viewed in Github, so the best way to view the notebooks that use plotly is to view them on [nbviewer.jupyter.org](http://nbviewer.jupyter.org). Below are links to view the notebooks on that website. Also the geographic map in `PoliceShootingsAnalysis.ipynb` has a small bug where if you press the button that says "years," the plot becomes emtpy. Just click and move the slider to fix this and the data points will appear. The same may happen when pressing the "states" button, just click on one of the state names on the right and the points should appear.
 
 **PoliceShootingsAnalysis.ipynb**: http://nbviewer.jupyter.org/github/enerrio/AnalysisPoliceShootings/blob/master/PoliceShootingsAnalysis.ipynb
 **FindIncorrectCoord.ipynb**: http://nbviewer.jupyter.org/github/enerrio/AnalysisPoliceShootings/blob/master/FindIncorrectCoord.ipynb
