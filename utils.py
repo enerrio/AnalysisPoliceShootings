@@ -5,6 +5,24 @@ import time
 import numpy as np
 import pandas as pd
 
+STATE_MAPPINGS = {'CA': 'California', 'TX': 'Texas', 'FL': 'Florida',
+                  'AZ': 'Arizona', 'CO': 'Colorado', 'GA': 'Georgia',
+                  'OH': 'Ohio', 'OK': 'Oklahoma', 'NC': 'North Carolina',
+                  'WA': 'Washington', 'TN': 'Tennessee', 'MO': 'Missouri',
+                  'IL': 'Illinois', 'PA': 'Pennsylvania', 'NM': 'New Mexico',
+                  'AL': 'Alabama', 'LA': 'Louisiana', 'VA': 'Virginia',
+                  'NV': 'Nevada', 'KY': 'Kentucky', 'IN': 'Indiana',
+                  'NY': 'New York', 'MI': 'Michigan', 'WI': 'Wisconsin',
+                  'OR': 'Oregon', 'SC': 'South Carolina', 'AR': 'Arkansas',
+                  'MD': 'Maryland', 'NJ': 'New Jersey', 'MN': 'Minnesota',
+                  'MS': 'Mississippi', 'UT': 'Utah', 'WV': 'West Virginia',
+                  'KS': 'Kansas', 'ID': 'Idaho', 'MA': 'Massachusetts',
+                  'AK': 'Alaska', 'IA': 'Iowa', 'HI': 'Hawaii',
+                  'MT': 'Montana', 'ME': 'Maine', 'NE': 'Nebraska',
+                  'WY': 'Wyoming', 'SD': 'South Dakota', 'DC': 'District of Columbia',
+                  'CT': 'Connecticut', 'NH': 'New Hampshire', 'DE': 'Delaware',
+                  'ND': 'North Dakota', 'VT': 'Vermont', 'RI': 'Rhode Island'}
+
 
 def get_coordinates(data):
     """
@@ -21,7 +39,7 @@ def get_coordinates(data):
     coordinates = {}
     cities_skip = []
     for (city, state), row in data.groupby(['city', 'state']):
-        city_state = "%s, %s" % (city, state)
+        city_state = "%s, %s" % (city, STATE_MAPPINGS[state])
         if city_state in cities_skip:
             latitude = np.nan
             longitude = np.nan
@@ -34,6 +52,8 @@ def get_coordinates(data):
                 cities_skip.append(city_state)
                 latitude = np.nan
                 longitude = np.nan
+        # Uodate city_state var to have original state abbr. (CA instead of California)
+        city_state = "%s, %s" % (city, state)
         coordinates[city_state] = [latitude, longitude]
         # Sleep to avoid sending too many requests to Nominatim servers at once
         time.sleep(1)
@@ -207,9 +227,6 @@ def add_coordinates(data):
     data.loc[(data['city'] == "Standing Rock Reservation") & (data['state'] == "ND"), 'lat'] = 45.750275
     data.loc[(data['city'] == "Standing Rock Reservation") & (data['state'] == "ND"), 'lon'] = -101.200415
 
-    data.loc[(data['city'] == "Rudioso") & (data['state'] == "NM"), 'lat'] = 33.367252
-    data.loc[(data['city'] == "Rudioso") & (data['state'] == "NM"), 'lon'] = -105.658848
-
     data.loc[(data['city'] == "300 block of State Line Road") & (data['state'] == "TN"), 'lat'] = 36.502580
     data.loc[(data['city'] == "300 block of State Line Road") & (data['state'] == "TN"), 'lon'] = -88.743449
 
@@ -257,6 +274,18 @@ def add_coordinates(data):
 
     data.loc[(data['city'] == "North Shore") & (data['state'] == "HI"), 'lat'] = 21.561657
     data.loc[(data['city'] == "North Shore") & (data['state'] == "HI"), 'lon'] = -158.071598
+
+    data.loc[(data['city'] == "Ruidoso") & (data['state'] == "NM"), 'lat'] = 33.332161
+    data.loc[(data['city'] == "Ruidoso") & (data['state'] == "NM"), 'lon'] = -105.674881
+
+    data.loc[(data['city'] == "Scarbo") & (data['state'] == "WV"), 'lat'] = 37.952240
+    data.loc[(data['city'] == "Scarbo") & (data['state'] == "WV"), 'lon'] = -81.164619
+
+    data.loc[(data['city'] == "Clear Creek Canyon") & (data['state'] == "CO"), 'lat'] = 39.629370
+    data.loc[(data['city'] == "Clear Creek Canyon") & (data['state'] == "CO"), 'lon'] = -105.395600
+
+    data.loc[(data['city'] == "Bristol") & (data['state'] == "VA"), 'lat'] = 36.615100
+    data.loc[(data['city'] == "Bristol") & (data['state'] == "VA"), 'lon'] = -82.172290
     return
 
 
@@ -341,9 +370,6 @@ def fix_coordinates(data):
 
     data.loc[(data['city'] == "Nokomis") & (data['state'] == "IL"), 'lat'] = 39.301157
     data.loc[(data['city'] == "Nokomis") & (data['state'] == "IL"), 'lon'] = -89.285085
-
-    data.loc[(data['city'] == "Joilet") & (data['state'] == "IL"), 'lat'] = 41.525031
-    data.loc[(data['city'] == "Joilet") & (data['state'] == "IL"), 'lon'] = -88.081725
 
     data.loc[(data['city'] == "Lansing") & (data['state'] == "IL"), 'lat'] = 41.564757
     data.loc[(data['city'] == "Lansing") & (data['state'] == "IL"), 'lon'] = -87.538931
@@ -482,6 +508,12 @@ def fix_coordinates(data):
 
     data.loc[(data['city'] == "Russellville") & (data['state'] == "AR"), 'lat'] = 35.278417
     data.loc[(data['city'] == "Russellville") & (data['state'] == "AR"), 'lon'] = -93.133786
+
+    data.loc[(data['city'] == "Colorado City") & (data['state'] == "CO"), 'lat'] = 37.953320
+    data.loc[(data['city'] == "Colorado City") & (data['state'] == "CO"), 'lon'] = -104.817300
+
+    data.loc[(data['city'] == "Chester") & (data['state'] == "VA"), 'lat'] = 37.357550
+    data.loc[(data['city'] == "Chester") & (data['state'] == "VA"), 'lon'] = -77.441970
     return
 
 
